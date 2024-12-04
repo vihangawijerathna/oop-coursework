@@ -15,7 +15,7 @@ public class Config {
         dataBase1.setTotalTickets(myObj.nextInt());
 
         System.out.print("Enter the ticket release rate: ");
-        dataBase1.setTicketReleaseDate(myObj.nextInt());
+        dataBase1.setTicketReleaseRate(myObj.nextInt());
 
         System.out.print("Enter the customer retrieval rate: ");
         dataBase1.setCustomerRetrievalRate(myObj.nextInt());
@@ -30,7 +30,7 @@ public class Config {
     public void gettingInput(){
         System.out.println();
         System.out.println("Total number of tickets: " + dataBase1.getTotalTickets());
-        System.out.println("Ticket release rate: " + dataBase1.getTicketReleaseDate());
+        System.out.println("Ticket release rate: " + dataBase1.getTicketReleaseRate());
         System.out.println("Customer retrieval rate: " + dataBase1.getCustomerRetrievalRate());
         System.out.println("Maximum ticket capacity: " + dataBase1.getMaxTicketCapacity());
     }

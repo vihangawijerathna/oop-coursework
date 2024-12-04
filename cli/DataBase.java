@@ -12,11 +12,11 @@ public class DataBase {
     public void setTotalTickets(int totalTickets) {
         this.totalTickets = totalTickets;
     }
-    public int getTicketReleaseDate() {
+    public int getTicketReleaseRate() {
         return ticketReleaseRate;
     }
-    public void setTicketReleaseDate(int ticketReleaseDate) {
-        this.ticketReleaseRate = ticketReleaseDate;
+    public void setTicketReleaseRate(int ticketReleaseRate) {
+        this.ticketReleaseRate = ticketReleaseRate;
     }
     public int getCustomerRetrievalRate() {
         return customerRetrievalRate;

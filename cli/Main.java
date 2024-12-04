@@ -30,10 +30,11 @@ public class Main {
 
         // Basic input validation and next steps
         if (userType.equals("V")) {
-            Vendor vendor = new Vendor();
+            Vendor vendor = new Vendor(dataBase1);
             vendor.run(); 
         } else if (userType.equals("C")) {
-            Customer customer = new Customer();
+            Customer customer = new Customer(dataBase1);
+            TicketPool ticketPool = new TicketPool(dataBase1);
             customer.run();
         } else {
             System.out.println("Invalid input. Please enter V or C.");
