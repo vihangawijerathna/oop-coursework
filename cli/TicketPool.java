@@ -12,7 +12,7 @@ public class TicketPool {
         this.currentTickets = dataBase1.getTotalTickets();
     }
     
-    public void addTickets() {
+    public synchronized void addTickets() {
         while(currentTickets < dataBase1.getMaxTicketCapacity()) {
             currentTickets = currentTickets + dataBase1.getTicketReleaseRate();
             if(currentTickets > dataBase1.getMaxTicketCapacity()) {
@@ -31,7 +31,7 @@ public class TicketPool {
     }
 
 
-    public void removeTicket() {
+    public synchronized void removeTicket() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("How many Tickets do you want to buy: ");
         int ticketsToBuy = scanner.nextInt();

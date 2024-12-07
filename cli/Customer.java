@@ -2,7 +2,7 @@ package cli;
 
 import java.util.Scanner;
 
-public class Customer {
+public class Customer implements Runnable {
     private TicketPool ticketPool;
 
     public Customer(DataBase dataBase1) {

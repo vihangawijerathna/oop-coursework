@@ -2,7 +2,7 @@ package cli;
 
 import java.util.Scanner;
 
-public class Vendor {
+public class Vendor implements Runnable {
     private DataBase dataBase1; // Reference to shared DataBase instance
     private TicketPool ticketPool; // TicketPool object to manage tickets
 
