@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class Config {
     Scanner myObj = new Scanner(System.in);
-    private DataBase dataBase1;
+    private DataBase dataBase;
 
-    public Config(DataBase dataBase1) {
-        this.dataBase1 = dataBase1; // Reference to the main DataBase instance
+    public Config(DataBase dataBase) {
+        this.dataBase = dataBase; // Reference to the main DataBase instance
     }
 
     public void settingInput() {
@@ -21,7 +21,7 @@ public class Config {
                     System.out.println("Error: Total tickets must be a positive integer.");
                     continue;
                 }
-                dataBase1.setTotalTickets(totalTickets);
+                dataBase.setTotalTickets(totalTickets);
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Error: Please enter a valid integer.");
@@ -36,7 +36,7 @@ public class Config {
                     System.out.println("Error: Ticket release rate must be a positive integer.");
                     continue;
                 }
-                dataBase1.setTicketReleaseRate(ticketReleaseRate);
+                dataBase.setTicketReleaseRate(ticketReleaseRate);
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Error: Please enter a valid integer.");
@@ -51,7 +51,7 @@ public class Config {
                     System.out.println("Error: Customer retrieval rate must be a positive integer.");
                     continue;
                 }
-                dataBase1.setCustomerRetrievalRate(customerRetrievalRate);
+                dataBase.setCustomerRetrievalRate(customerRetrievalRate);
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Error: Please enter a valid integer.");
@@ -62,11 +62,11 @@ public class Config {
             try {
                 System.out.print("Enter the maximum ticket capacity (less than or equal to total tickets): ");
                 int maxTicketCapacity = Integer.parseInt(myObj.nextLine());
-                if (maxTicketCapacity > dataBase1.getTotalTickets()) {
+                if (maxTicketCapacity > dataBase.getTotalTickets()) {
                     System.out.println("Error: Maximum ticket capacity must be less than or equal to the total number of tickets.");
                     continue;
                 }
-                dataBase1.setMaxTicketCapacity(maxTicketCapacity);
+                dataBase.setMaxTicketCapacity(maxTicketCapacity);
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Error: Please enter a valid integer.");
@@ -78,9 +78,9 @@ public class Config {
 
     public void gettingInput() {
         System.out.println("\nCurrent Configuration:");
-        System.out.println("Total number of tickets: " + dataBase1.getTotalTickets());
-        System.out.println("Ticket release rate: " + dataBase1.getTicketReleaseRate());
-        System.out.println("Customer retrieval rate: " + dataBase1.getCustomerRetrievalRate());
-        System.out.println("Maximum ticket capacity: " + dataBase1.getMaxTicketCapacity());
+        System.out.println("Total number of tickets: " + dataBase.getTotalTickets());
+        System.out.println("Ticket release rate: " + dataBase.getTicketReleaseRate());
+        System.out.println("Customer retrieval rate: " + dataBase.getCustomerRetrievalRate());
+        System.out.println("Maximum ticket capacity: " + dataBase.getMaxTicketCapacity());
     }
 }

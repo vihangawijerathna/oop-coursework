@@ -4,49 +4,83 @@ import java.util.Scanner;
 
 public class TicketPool {
 
-    private DataBase dataBase1;
+    private DataBase dataBase;
     private int currentTickets = 0;
 
-    public TicketPool(DataBase dataBase1) {
-        this.dataBase1 = dataBase1;
-        this.currentTickets = dataBase1.getTotalTickets();
+    public TicketPool(DataBase dataBase) {
+        this.dataBase = dataBase;
+        this.currentTickets = dataBase.getTotalTickets();
     }
-    
+
     public synchronized void addTickets() {
-        while(currentTickets < dataBase1.getMaxTicketCapacity()) {
-            currentTickets = currentTickets + dataBase1.getTicketReleaseRate();
-            if(currentTickets > dataBase1.getMaxTicketCapacity()) {
-                currentTickets = dataBase1.getMaxTicketCapacity();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of tickets to add: ");
+
+        try {
+            int ticketsToAdd = Integer.parseInt(scanner.nextLine());
+
+            if (ticketsToAdd <= 0) {
+                System.out.println("Please enter a positive number of tickets.");
+                return;
             }
-            dataBase1.setTotalTickets(currentTickets);
-            System.out.println("Vendor added tickets: " + currentTickets);
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+            if (ticketsToAdd > dataBase.getTicketReleaseRate()) {
+                System.out.println("Cannot add more than the ticket release rate of " + 
+                                   dataBase.getTicketReleaseRate() + " tickets.");
+                return;
             }
+
+            int currentTickets = dataBase.getTotalTickets();
+            int maxTicketCapacity = dataBase.getMaxTicketCapacity();
+
+            if (currentTickets + ticketsToAdd > maxTicketCapacity) {
+                System.out.println("Cannot add that many tickets. Maximum capacity is: " + maxTicketCapacity);
+                return;
+            }
+
+            // Update tickets
+            currentTickets += ticketsToAdd;
+            dataBase.setTotalTickets(currentTickets);
+            System.out.println("Vendor added " + ticketsToAdd + " tickets. Current tickets: " + currentTickets);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
         }
-        System.out.println("Ticket pool is full.No more tickets can be added.");
-
     }
-
 
     public synchronized void removeTicket() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("How many Tickets do you want to buy: ");
-        int ticketsToBuy = scanner.nextInt();
+        System.out.print("How many tickets do you want to buy: ");
 
-        int availableTickets = dataBase1.getTotalTickets();
-        int maxBuyLimit = dataBase1.getCustomerRetrievalRate();
+        try {
+            int ticketsToBuy = Integer.parseInt(scanner.nextLine());
 
-        if(ticketsToBuy > maxBuyLimit) {
-            System.out.println("You can buy a maximum of " + maxBuyLimit + " tickets at a time.");
-        } else if(ticketsToBuy > availableTickets) {
-            System.out.println("Only " + availableTickets + " tickets are available.");
-        } else {
-            dataBase1.setTotalTickets(dataBase1.getTotalTickets() - ticketsToBuy);
+            if (ticketsToBuy <= 0) {
+                System.out.println("Please enter a positive number of tickets.");
+                return;
+            }
+
+            int availableTickets = dataBase.getTotalTickets();
+            int maxBuyLimit = dataBase.getCustomerRetrievalRate();
+
+            if (ticketsToBuy > maxBuyLimit) {
+                System.out.println("You can buy a maximum of " + maxBuyLimit + " tickets at a time.");
+                return;
+            }
+
+            if (ticketsToBuy > availableTickets) {
+                System.out.println("Only " + availableTickets + " tickets are available.");
+                return;
+            }
+
+            // Update tickets
+            int remainingTickets = availableTickets - ticketsToBuy;
+            dataBase.setTotalTickets(remainingTickets);
             System.out.println("Buying " + ticketsToBuy + " tickets...");
-            System.out.println("Available tickets: " + dataBase1.getTotalTickets());
+            System.out.println("Available tickets: " + remainingTickets);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
         }
     }
 }

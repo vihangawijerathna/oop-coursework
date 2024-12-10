@@ -3,16 +3,15 @@ package cli;
 import java.util.Scanner;
 
 public class Vendor implements Runnable {
-    private DataBase dataBase1; // Reference to shared DataBase instance
-    private TicketPool ticketPool; // TicketPool object to manage tickets
+    private DataBase dataBase;
+    private TicketPool ticketPool;
 
-    // Constructor to accept DataBase instance
-    public Vendor(DataBase dataBase1) {
-        this.dataBase1 = dataBase1;
-        this.ticketPool = new TicketPool(dataBase1); // Initialize TicketPool with the shared DataBase instance
+    public Vendor(DataBase dataBase) {
+        this.dataBase = dataBase;
+        this.ticketPool = new TicketPool(dataBase);
     }
 
-    // Main method for the Vendor menu
+    @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
@@ -27,11 +26,11 @@ public class Vendor implements Runnable {
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
-                        ticketPool.addTickets(); // Call the addTickets method
+                        ticketPool.addTickets();
                         break;
                     case 2:
                         System.out.println("Exiting Vendor Menu.");
-                        isRunning = false; // Exit the menu loop
+                        isRunning = false;
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
@@ -41,7 +40,5 @@ public class Vendor implements Runnable {
                 scanner.nextLine(); // Clear invalid input
             }
         }
-
-        scanner.close(); // Close the scanner
     }
 }
